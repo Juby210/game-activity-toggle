@@ -1,0 +1,7 @@
+{
+    "name": "Game Activity Toggle",
+    "description": "Shows a button to disable/enable the game status on the bottom left next to the mute button.",
+    "author": "Juby210#0577",
+    "version": "1.0.0",
+    "license": "MIT"
+}
