@@ -94,7 +94,7 @@ module.exports = class GameActivityToggle extends Plugin {
                         settings.updateRemoteSettings({ showCurrentGame })
                         forceUpdateElement('.' + classes.container, true)
                     },
-                    tooltipText: `${showCurrentGame ? 'Hide' : 'Show'}`
+                    tooltipText: `${showCurrentGame ? 'Hide' : 'Show'} Game Activity`
                 }))
 
                 return res
