@@ -89,9 +89,6 @@ module.exports = class GameActivityToggle extends Plugin {
 
                 r.props.children.unshift(React.createElement(r.props.children[0].type, {
                     icon: () => showCurrentGame ? enabledIcon('20') : disabledIcon('20'),
-                    'aria-label': `${showCurrentGame ? 'Hide' : 'Show'} Game Activity`,
-                    'aria-checked': `${showCurrentGame ? 'false' : 'true'}`,
-                    role: "switch",
                     onClick: () => {
                         showCurrentGame = !showCurrentGame
                         settings.updateRemoteSettings({ showCurrentGame })
