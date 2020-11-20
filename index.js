@@ -77,13 +77,15 @@ module.exports = class GameActivityToggle extends Plugin {
             }, true)
             Menu.default.displayName = 'Menu'
         } else {
+            const { playSound } = await getModule(['playSound'])
+
             const classes = await getModule(['container', 'usernameContainer'])
             let container = await waitFor('.' + classes.container)
             if (container.parentElement.className.includes('powercord-spotify'))
-                container = document.querySelectorAll('.' + classes.container)[document.querySelectorAll('.' + classes.container).length - 1]
+                container = Array.from(document.querySelectorAll('.' + classes.container)).pop()
             const Account = getOwnerInstance(container)
             inject('game-activity-toggle', Account.__proto__, 'render', (_, res) => {
-                const r = findInReactTree(res, e => e.props && e.props.basis && e.props.children && e.props.shrink)
+                const r = findInReactTree(res, e => e?.props?.basis && e.props.children && e.props.shrink)
                 if (!r) return res
                 showCurrentGame = g.showCurrentGame
 
@@ -92,6 +94,10 @@ module.exports = class GameActivityToggle extends Plugin {
                     onClick: () => {
                         showCurrentGame = !showCurrentGame
                         settings.updateRemoteSettings({ showCurrentGame })
+                        if (this.settings.get('sound')) {
+                            if (showCurrentGame) playSound('unmute', 0.4)
+                            else playSound('mute', 0.4)
+                        }
                         forceUpdateElement('.' + classes.container, true)
                     },
                     tooltipText: `${showCurrentGame ? 'Hide' : 'Show'} Game Activity`
