@@ -1,14 +1,7 @@
 const { React, getModule } = require('powercord/webpack');
 const classes = getModule(['strikethrough', 'nameTag'], false);
-const path = require('path');
 
 module.exports = React.memo((props) => {
-   if (props.disabled == null) {
-      let pluginName = path.dirname(__dirname).split(path.sep).pop();
-      let plugin = powercord.pluginManager.get(pluginName);
-      if (plugin) props.disabled = plugin.enabled;
-   }
-
    return <svg
       viewBox={'0 0 24 24'}
       width={props.width || '16'}

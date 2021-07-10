@@ -89,7 +89,13 @@ module.exports = class GameActivityToggle extends Plugin {
 
             r.props.children.unshift(
                <Comp
-                  icon={Joystick}
+                  icon={() =>
+                     <Joystick
+                        disabled={!this.enabled}
+                        width={20}
+                        height={20}
+                     />
+                  }
                   onClick={() => {
                      this.onToggleClicked();
                      forceUpdateElement(`.${accountClasses.container}`, true);
