@@ -44,7 +44,7 @@ module.exports = class GameActivityToggle extends Plugin {
         let showCurrentGame
 
         if (this.settings.get('showInMenu')) {
-            const classes = await getModule(['status', 'description'])
+            const classes = await getModule(['status', 'statusItem'])
             const Menu = await getModule(m => m.default && m.default.displayName == 'Menu')
             inject('game-activity-toggle', Menu, 'default', args => {
                 if (args[0].navId != 'status-picker') return args
