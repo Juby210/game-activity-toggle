@@ -40,13 +40,7 @@ module.exports = class GameActivityToggle extends Plugin {
                let item = <Menu.MenuItem
                   id='game-activity'
                   keepItemStyles={true}
-                  action={() => {
-                     this.enabled = !this.enabled;
-                     if (this.settings.get('sound', false)) {
-                        playSound(this.enabled ? 'mute' : 'unmute', 0.4);
-                     }
-                     return settings.updateRemoteSettings({ showCurrentGame: this.enabled });
-                  }}
+                  action={this.onToggleClicked}
                   render={() =>
                      <div
                         className={statusClasses.statusItem}
@@ -97,11 +91,7 @@ module.exports = class GameActivityToggle extends Plugin {
                <Comp
                   icon={this.enabled ? Joystick.disabled : Joystick.default}
                   onClick={() => {
-                     this.enabled = !this.enabled;
-                     if (this.settings.get('sound', false)) {
-                        playSound(this.enabled ? 'mute' : 'unmute', 0.4);
-                     }
-                     settings.updateRemoteSettings({ showCurrentGame: this.enabled });
+                     this.onToggleClicked();
                      forceUpdateElement(`.${accountClasses.container}`, true);
                   }}
                   tooltipText={`${this.enabled ? 'Hide' : 'Show'} Game Activity`}
@@ -119,6 +109,14 @@ module.exports = class GameActivityToggle extends Plugin {
             forceUpdateElement(`.${accountClasses.container}`, true);
          }
       });
+   }
+
+   onToggleClicked() {
+      this.enabled = !this.enabled;
+      if (this.settings.get('sound', false)) {
+         playSound(this.enabled ? 'mute' : 'unmute', 0.4);
+      }
+      return settings.updateRemoteSettings({ showCurrentGame: this.enabled });
    }
 
    pluginWillUnload() {
