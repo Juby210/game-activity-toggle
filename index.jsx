@@ -46,7 +46,7 @@ module.exports = class GameActivityToggle extends Plugin {
                         className={statusClasses.statusItem}
                         aria-label={`${this.enabled ? 'Hide' : 'Show'} Game Activity`}
                      >
-                        <Joystick.default
+                        <Joystick
                            disabled={this.enabled}
                            width={16}
                            height={16}
@@ -89,7 +89,7 @@ module.exports = class GameActivityToggle extends Plugin {
 
             r.props.children.unshift(
                <Comp
-                  icon={this.enabled ? Joystick.disabled : Joystick.default}
+                  icon={Joystick}
                   onClick={() => {
                      this.onToggleClicked();
                      forceUpdateElement(`.${accountClasses.container}`, true);
