@@ -40,7 +40,7 @@ module.exports = class GameActivityToggle extends Plugin {
                let item = <Menu.MenuItem
                   id='game-activity'
                   keepItemStyles={true}
-                  action={() => this.onToggleClicked()}
+                  action={this.onToggleClicked.bind(this)}
                   render={() =>
                      <div
                         className={statusClasses.statusItem}
