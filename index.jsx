@@ -43,7 +43,7 @@ module.exports = class GameActivityToggle extends Plugin {
                   action={() => {
                      this.enabled = !this.enabled;
                      if (this.settings.get('sound', false)) {
-                        playSound(this.enabled ? 'unmute' : 'mute', 0.4);
+                        playSound(this.enabled ? 'mute' : 'unmute', 0.4);
                      }
                      return settings.updateRemoteSettings({ showCurrentGame: this.enabled });
                   }}
@@ -99,7 +99,7 @@ module.exports = class GameActivityToggle extends Plugin {
                   onClick={() => {
                      this.enabled = !this.enabled;
                      if (this.settings.get('sound', false)) {
-                        playSound(this.enabled ? 'unmute' : 'mute', 0.4);
+                        playSound(this.enabled ? 'mute' : 'unmute', 0.4);
                      }
                      settings.updateRemoteSettings({ showCurrentGame: this.enabled });
                      forceUpdateElement(`.${accountClasses.container}`, true);
