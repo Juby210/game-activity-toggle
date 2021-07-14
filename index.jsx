@@ -124,11 +124,9 @@ module.exports = class GameActivityToggle extends Plugin {
    }
 
    onToggleClicked() {
-      this.enabled = !this.enabled;
-      if (this.settings.get('sound', false)) {
-         playSound(this.enabled ? 'mute' : 'unmute', 0.4);
-      }
-      return settings.updateRemoteSettings({ showCurrentGame: this.enabled });
+      this.enabled = !this.enabled
+      if (this.settings.get('sound', false)) playSound(this.enabled ? 'unmute' : 'mute', 0.4)
+      return settings.updateRemoteSettings({ showCurrentGame: this.enabled })
    }
 
    pluginWillUnload() {
