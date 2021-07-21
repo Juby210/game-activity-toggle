@@ -1,19 +1,19 @@
-const { Plugin } = require('powercord/entities')
-const { getModule, contextMenu, React, i18n: { Messages } } = require('powercord/webpack')
-const { findInReactTree, forceUpdateElement, getOwnerInstance, waitFor } = require('powercord/util')
-const { inject, uninject } = require('powercord/injector')
+const { Plugin } = require('powercord/entities');
+const { getModule, contextMenu, React, i18n: { Messages } } = require('powercord/webpack');
+const { findInReactTree, forceUpdateElement, getOwnerInstance, waitFor } = require('powercord/util');
+const { inject, uninject } = require('powercord/injector');
 
-const accountClasses = getModule(['container', 'usernameContainer'], false)
-const Menu = getModule(['MenuGroup', 'MenuItem'], false)
-const statusClasses = getModule(['status', 'statusItem'], false)
-const settings = getModule(['updateRemoteSettings'], false)
-const SettingsStore = getModule(['showCurrentGame'], false)
-const { playSound } = getModule(['playSound'], false) || {}
+const accountClasses = getModule(['container', 'usernameContainer'], false);
+const Menu = getModule(['MenuGroup', 'MenuItem'], false);
+const statusClasses = getModule(['status', 'statusItem'], false);
+const settings = getModule(['updateRemoteSettings'], false);
+const SettingsStore = getModule(['showCurrentGame'], false);
+const { playSound } = getModule(['playSound'], false) || {};
 
-const SpotifyUtils = require('./spotify')
-const Joystick = require('./components/Joystick')
-const Settings = require('./components/Settings')
-const SpotifyContextMenu = require('./components/Spotify')
+const SpotifyUtils = require('./spotify');
+const Joystick = require('./components/Joystick');
+const Settings = require('./components/Settings');
+const SpotifyContextMenu = require('./components/Spotify');
 
 module.exports = class GameActivityToggle extends Plugin {
    async startPlugin() {
@@ -32,13 +32,13 @@ module.exports = class GameActivityToggle extends Plugin {
 
    patchStatusPicker() {
       inject('game-activity-toggle', Menu, 'default', (args) => {
-         if (args[0].navId !== 'status-picker') return args
-         
-         const [{ children }] = args
-         const invisibleStatus = children.find(c => c.props.id === 'invisible')
+         if (args[0].navId !== 'status-picker') return args;
+
+         const [{ children }] = args;
+         const invisibleStatus = children.find(c => c.props.id === 'invisible');
 
          if (!children.find(c => c.props.id == 'game-activity')) {
-            this.enabled = SettingsStore.showCurrentGame
+            this.enabled = SettingsStore.showCurrentGame;
 
             children.splice(
                children.indexOf(invisibleStatus) + 1,
@@ -67,13 +67,13 @@ module.exports = class GameActivityToggle extends Plugin {
                      </div>
                   }
                />,
-               SpotifyUtils.getSpotifyAccounts().length > 0 ? SpotifyContextMenu.buildSpotifyGroup() : null
-            )
+               this.settings.get('showSpotify', true) ? SpotifyUtils.getSpotifyAccounts().length > 0 ? SpotifyContextMenu.buildSpotifyGroup() : null : null
+            );
          }
 
-         return args
-      }, true)
-      Menu.default.displayName = 'Menu'
+         return args;
+      }, true);
+      Menu.default.displayName = 'Menu';
    }
 
    async patchAccountContainer() {
@@ -124,9 +124,9 @@ module.exports = class GameActivityToggle extends Plugin {
    }
 
    onToggleClicked() {
-      this.enabled = !this.enabled
-      if (this.settings.get('sound', false)) playSound(this.enabled ? 'unmute' : 'mute', 0.4)
-      return settings.updateRemoteSettings({ showCurrentGame: this.enabled })
+      this.enabled = !this.enabled;
+      if (this.settings.get('sound', false)) playSound(this.enabled ? 'unmute' : 'mute', 0.4);
+      return settings.updateRemoteSettings({ showCurrentGame: this.enabled });
    }
 
    pluginWillUnload() {
