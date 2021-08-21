@@ -4,6 +4,24 @@ const { default: Menu, MenuCheckboxItem, MenuGroup, MenuItem } = getModule(['Men
 
 const SpotifyUtils = require('../spotify');
 
+const cssPath = function (el) {
+   if (!el) return '';
+   const path = [];
+   while (el.nodeType === Node.ELEMENT_NODE) {
+      let selector = el.nodeName.toLowerCase();
+      if (el.id) selector += `#${el.id}`;
+      else {
+         let sib = el, nth = 1;
+         while (sib.nodeType === Node.ELEMENT_NODE && (sib = sib.previousSibling) && nth++);
+         selector += `:nth-child(${nth})`;
+      }
+      path.unshift(selector);
+      el = el.parentNode;
+      if (el.id === 'app-mount') break;
+   }
+   return path.join(' > ');
+};
+
 const buildSpotifyGroup = () => {
    const accounts = SpotifyUtils.getSpotifyAccounts();
    return <MenuGroup label='Spotify Activity'>
@@ -16,7 +34,8 @@ const buildSpotifyGroup = () => {
             action={e => {
                SpotifyUtils.toggleShowActivity(a);
                const el = e.target.closest('[role="menu"]');
-               setImmediate(() => getOwnerInstance(el).forceUpdate());
+               // sometimes doesn't work, I have no idea
+               setImmediate(() => getOwnerInstance(document.querySelector(cssPath(el))).forceUpdate());
             }}
          />
          )}
