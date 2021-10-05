@@ -32,12 +32,12 @@ module.exports = class GameActivityToggle extends Plugin {
 
    patchStatusPicker() {
       inject('game-activity-toggle', Menu, 'default', (args) => {
-         if (args[0].navId !== 'status-picker') return args;
+         if (args[0]?.navId !== 'status-picker') return args;
 
          const [{ children }] = args;
          const invisibleStatus = children.find(c => c.props.id === 'invisible');
 
-         if (!children.find(c => c.props.id == 'game-activity')) {
+         if (!children.find(c => c?.props?.id == 'game-activity')) {
             this.enabled = SettingsStore.showCurrentGame;
 
             children.splice(
