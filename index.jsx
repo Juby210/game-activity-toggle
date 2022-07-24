@@ -28,6 +28,11 @@ module.exports = class GameActivityToggle extends Plugin {
       } else {
          this.patchAccountContainer();
       }
+
+      if (this.settings.get('fixUserArea', true)) {
+         console.log("Applying fix")
+         this.loadStylesheet('./UserAreaFix.css')
+      }
    }
 
    patchStatusPicker() {
