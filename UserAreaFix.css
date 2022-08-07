@@ -1,0 +1,9 @@
+.avatarWrapper-1B9FTW.withTagAsButton-OsgQ9L {
+    min-width: 0;
+    transition: 0.2s;
+}
+
+.avatarWrapper-1B9FTW.withTagAsButton-OsgQ9L:hover {
+    min-width: 120px;
+    transition: 0.2s;
+}

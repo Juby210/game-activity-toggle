@@ -26,4 +26,14 @@ module.exports = ({ getSetting, toggleSetting, plugin }) => <>
    >
       Play toggle sound
    </SwitchItem>
+   <SwitchItem
+      value={getSetting('fixUserArea', true)}
+      onChange={() => {
+         toggleSetting('fixUserArea', true)
+         plugin._unload();
+         plugin._load();
+      }}
+   >
+      Fix User Area overflow
+   </SwitchItem>
 </>;
