@@ -30,7 +30,6 @@ module.exports = class GameActivityToggle extends Plugin {
       }
 
       if (this.settings.get('fixUserArea', true)) {
-         console.log("Applying fix")
          this.loadStylesheet('./UserAreaFix.css')
       }
    }
